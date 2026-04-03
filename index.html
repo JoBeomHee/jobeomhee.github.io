@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>조범희 | .NET & WPF 소프트웨어 엔지니어</title>
+<meta name="description" content="7년차 .NET 전문 소프트웨어 엔지니어 조범희의 포트폴리오. 반도체·디스플레이 산업 실시간 모니터링 시스템 및 AI 솔루션 개발.">
+
+<!-- Pretendard -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<!-- Outfit for English display -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Iconify -->
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Pretendard Variable', 'Pretendard', 'system-ui', 'sans-serif'],
+        display: ['Outfit', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+      colors: {
+        warm: {
+          50: '#fefcf9',
+          100: '#fdf6ec',
+          200: '#faecd4',
+          300: '#f5d9ab',
+          400: '#efc07c',
+          500: '#e8a44e',
+          600: '#d4872e',
+          700: '#b06a24',
+          800: '#8e5424',
+          900: '#744622',
+        },
+        stone: {
+          925: '#1a1814',
+          950: '#110f0d',
+        }
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'float-delayed': 'float 6s ease-in-out 2s infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-12px)' },
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  * { word-break: keep-all; }
+
+  /* Custom easing */
+  .ease-spring { transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+
+  /* Grain texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.018;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #fefcf9; }
+  ::-webkit-scrollbar-thumb { background: #d4872e; border-radius: 3px; }
+
+  /* Reveal animation */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Card hover lift */
+  .card-lift {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px -12px rgba(0,0,0,0.08), 0 0 0 1px rgba(212,135,46,0.06);
+  }
+
+  /* Skill bar animation */
+  .skill-fill {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .skill-fill.animate {
+    transform: scaleX(1);
+  }
+
+  /* Nav blur */
+  .nav-blur {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+  }
+
+  /* Bento aspect ratios */
+  .bento-tall { grid-row: span 2; }
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, #d4872e, #e8a44e, #b06a24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Timeline connector */
+  .timeline-line {
+    background: linear-gradient(to bottom, #e8a44e, #faecd4, transparent);
+  }
+</style>
+</head>
+
+<body class="bg-warm-50 text-stone-800 font-sans antialiased overflow-x-hidden">
+
+<!-- ══════════════════════════════════════════ -->
+<!-- NAVIGATION -->
+<!-- ══════════════════════════════════════════ -->
+<nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-warm-50/70 border-b border-warm-200/40 transition-all duration-500">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-[72px]">
+    <a href="#" class="font-display font-800 text-xl tracking-tight text-stone-900">
+      BH<span class="text-warm-600">.</span>
+    </a>
+    <div class="hidden md:flex items-center gap-10">
+      <a href="#about" class="text-[13px] font-mono font-medium text-stone-500 hover:text-warm-700 tracking-wide uppercase transition-colors duration-300">소개</a>
+      <a href="#career" class="text-[13px] font-mono font-medium text-stone-500 hover:text-warm-700 tracking-wide uppercase transition-colors duration-300">경력</a>
+      <a href="#skills" class="text-[13px] font-mono font-medium text-stone-500 hover:text-warm-700 tracking-wide uppercase transition-colors duration-300">기술</a>
+      <a href="#projects" class="text-[13px] font-mono font-medium text-stone-500 hover:text-warm-700 tracking-wide uppercase transition-colors duration-300">프로젝트</a>
+      <a href="#awards" class="text-[13px] font-mono font-medium text-stone-500 hover:text-warm-700 tracking-wide uppercase transition-colors duration-300">수상</a>
+      <a href="#contact" class="inline-flex items-center gap-2 px-5 py-2.5 bg-stone-900 text-warm-50 text-[13px] font-medium rounded-full hover:bg-warm-700 transition-all duration-300 ease-spring">
+        연락하기
+        <span class="iconify w-3.5 h-3.5" data-icon="solar:arrow-right-up-linear"></span>
+      </a>
+    </div>
+    <button id="mobileToggle" class="md:hidden flex flex-col gap-[5px] p-2" aria-label="메뉴">
+      <span class="block w-5 h-[1.5px] bg-stone-800 transition-all"></span>
+      <span class="block w-5 h-[1.5px] bg-stone-800 transition-all"></span>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden hidden bg-warm-50/95 nav-blur border-t border-warm-200/40 px-6 py-6">
+    <div class="flex flex-col gap-4">
+      <a href="#about" class="text-sm font-medium text-stone-700 py-2">소개</a>
+      <a href="#career" class="text-sm font-medium text-stone-700 py-2">경력</a>
+      <a href="#skills" class="text-sm font-medium text-stone-700 py-2">기술</a>
+      <a href="#projects" class="text-sm font-medium text-stone-700 py-2">프로젝트</a>
+      <a href="#awards" class="text-sm font-medium text-stone-700 py-2">수상</a>
+      <a href="#contact" class="text-sm font-medium text-warm-700 py-2">연락하기</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════ -->
+<section class="relative min-h-[100dvh] flex items-center pt-20">
+  <!-- Decorative warm gradient blobs -->
+  <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-gradient-to-br from-warm-200/40 via-warm-100/20 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-warm-300/20 via-warm-100/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-10 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <!-- Left: Text -->
+      <div class="lg:col-span-7">
+        <div class="reveal-up">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-warm-100 border border-warm-200/60 rounded-full mb-8">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-xs font-mono font-medium text-warm-800 tracking-wide">현재 한화에너지(컨버전스) 재직중</span>
+          </div>
+        </div>
+
+        <h1 class="reveal-up font-display font-900 text-[clamp(2.8rem,6vw,5.2rem)] leading-[1.05] tracking-tight text-stone-900 mb-6" style="transition-delay:0.08s">
+          끊임없이 성장하는<br>
+          <span class="text-gradient">.NET 엔지니어</span>
+        </h1>
+
+        <p class="reveal-up text-lg md:text-xl font-light leading-relaxed text-stone-500 max-w-xl mb-10" style="transition-delay:0.16s">
+          조범희 &mdash; 반도체 및 디스플레이 산업의 실시간 모니터링 시스템과 AI 기반 솔루션을 설계하고 구축하는 <strong class="font-medium text-stone-700">7년차 소프트웨어 엔지니어</strong>입니다.
+        </p>
+
+        <div class="reveal-up flex flex-wrap gap-4" style="transition-delay:0.24s">
+          <a href="#projects" class="inline-flex items-center gap-3 px-7 py-3.5 bg-stone-900 text-warm-50 text-sm font-semibold rounded-full hover:bg-warm-700 transition-all duration-400 ease-spring group">
+            프로젝트 보기
+            <span class="inline-flex items-center justify-center w-7 h-7 bg-white/10 rounded-full group-hover:bg-white/20 transition-colors">
+              <span class="iconify w-4 h-4" data-icon="solar:arrow-down-linear"></span>
+            </span>
+          </a>
+          <a href="https://github.com/JoBeomHee" target="_blank" class="inline-flex items-center gap-2.5 px-7 py-3.5 bg-white text-stone-700 text-sm font-semibold rounded-full border border-stone-200 hover:border-warm-300 hover:text-warm-700 transition-all duration-400 ease-spring">
+            <span class="iconify w-4.5 h-4.5" data-icon="solar:link-round-linear"></span>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Stats Cards -->
+      <div class="lg:col-span-5 flex flex-col gap-4">
+        <div class="reveal-up grid grid-cols-2 gap-4" style="transition-delay:0.1s">
+          <div class="bg-white/70 border border-warm-200/50 rounded-2xl p-6 card-lift">
+            <p class="font-display font-800 text-4xl text-stone-900 mb-1">7+</p>
+            <p class="text-sm text-stone-500">년 경력</p>
+          </div>
+          <div class="bg-white/70 border border-warm-200/50 rounded-2xl p-6 card-lift">
+            <p class="font-display font-800 text-4xl text-warm-600 mb-1">3</p>
+            <p class="text-sm text-stone-500">개 회사 근무</p>
+          </div>
+        </div>
+        <div class="reveal-up grid grid-cols-2 gap-4" style="transition-delay:0.2s">
+          <div class="bg-white/70 border border-warm-200/50 rounded-2xl p-6 card-lift">
+            <p class="font-display font-800 text-4xl text-stone-900 mb-1">4</p>
+            <p class="text-sm text-stone-500">수상 실적</p>
+          </div>
+          <div class="bg-white/70 border border-warm-200/50 rounded-2xl p-6 card-lift">
+            <p class="font-display font-800 text-4xl text-warm-600 mb-1">2</p>
+            <p class="text-sm text-stone-500">논문 & 특허</p>
+          </div>
+        </div>
+        <div class="reveal-up bg-gradient-to-br from-stone-900 to-stone-800 rounded-2xl p-6 text-warm-50 card-lift" style="transition-delay:0.3s">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="iconify w-5 h-5 text-warm-400" data-icon="solar:code-bold"></span>
+            <span class="text-xs font-mono tracking-wider text-warm-300 uppercase">Core Stack</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-white/10 rounded-md text-xs font-mono">C#</span>
+            <span class="px-3 py-1 bg-white/10 rounded-md text-xs font-mono">WPF</span>
+            <span class="px-3 py-1 bg-white/10 rounded-md text-xs font-mono">.NET</span>
+            <span class="px-3 py-1 bg-white/10 rounded-md text-xs font-mono">Oracle</span>
+            <span class="px-3 py-1 bg-white/10 rounded-md text-xs font-mono">Blazor</span>
+            <span class="px-3 py-1 bg-white/10 rounded-md text-xs font-mono">Docker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- ABOUT -->
+<!-- ══════════════════════════════════════════ -->
+<section id="about" class="py-28 md:py-36">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <!-- Eyebrow -->
+    <div class="reveal-up flex items-center gap-4 mb-6">
+      <span class="font-mono text-xs tracking-[0.2em] text-warm-600 uppercase">01 &mdash; About</span>
+      <div class="flex-1 h-px bg-warm-200/60"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+      <!-- Left: Large intro -->
+      <div class="lg:col-span-7">
+        <h2 class="reveal-up font-display font-800 text-[clamp(1.8rem,3.5vw,2.8rem)] leading-snug tracking-tight text-stone-900 mb-8">
+          산업용 소프트웨어의<br>
+          설계부터 배포까지,<br>
+          <span class="text-warm-600">전 과정을 주도합니다</span>
+        </h2>
+        <div class="reveal-up space-y-5 text-[16.5px] leading-[1.9] text-stone-600 font-light" style="transition-delay:0.1s">
+          <p>
+            안녕하세요, 소프트웨어 엔지니어 <strong class="font-semibold text-stone-800">조범희</strong>입니다. 2017년부터 .NET 생태계를 중심으로 WPF, Blazor, ASP.NET Core 등 다양한 프레임워크를 활용한 산업용 소프트웨어를 개발해왔습니다.
+          </p>
+          <p>
+            반도체 및 디스플레이 업계에서 발생하는 대량의 검사 데이터를 수집하고, 엔지니어에게 <strong class="font-semibold text-stone-800">실시간 모니터링 대시보드(RTMS, DMS)</strong>를 제공하는 시스템을 설계했습니다. 또한 AI 딥러닝 기술로 이미지의 Defect를 자동 판정하여 품질 관리를 혁신하는 <strong class="font-semibold text-stone-800">ADC Edge 솔루션</strong>을 개발한 경험이 있습니다.
+          </p>
+          <p>
+            데이터베이스는 Oracle, PostgreSQL, MS-SQL을 능숙하게 다루며, Docker, RabbitMQ, gRPC 등 현대적인 인프라 기술도 적극 활용합니다. 현재는 <strong class="font-semibold text-stone-800">(주) 한화에너지(컨버전스)</strong>에서 대리로 재직하며 새로운 도전을 이어가고 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Info cards stacked -->
+      <div class="lg:col-span-5 flex flex-col gap-3">
+        <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-5 flex items-start gap-4 card-lift">
+          <div class="w-10 h-10 rounded-xl bg-warm-100 flex items-center justify-center flex-shrink-0">
+            <span class="iconify w-5 h-5 text-warm-700" data-icon="solar:letter-linear"></span>
+          </div>
+          <div>
+            <p class="text-[11px] font-mono tracking-wider text-stone-400 uppercase mb-1">Email</p>
+            <a href="mailto:afsdzvcx123@naver.com" class="text-sm font-medium text-stone-800 hover:text-warm-600 transition-colors">afsdzvcx123@naver.com</a>
+          </div>
+        </div>
+        <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-5 flex items-start gap-4 card-lift" style="transition-delay:0.05s">
+          <div class="w-10 h-10 rounded-xl bg-warm-100 flex items-center justify-center flex-shrink-0">
+            <span class="iconify w-5 h-5 text-warm-700" data-icon="solar:phone-linear"></span>
+          </div>
+          <div>
+            <p class="text-[11px] font-mono tracking-wider text-stone-400 uppercase mb-1">Phone</p>
+            <p class="text-sm font-medium text-stone-800">+82-10-5099-2720</p>
+          </div>
+        </div>
+        <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-5 flex items-start gap-4 card-lift" style="transition-delay:0.1s">
+          <div class="w-10 h-10 rounded-xl bg-warm-100 flex items-center justify-center flex-shrink-0">
+            <span class="iconify w-5 h-5 text-warm-700" data-icon="solar:global-linear"></span>
+          </div>
+          <div>
+            <p class="text-[11px] font-mono tracking-wider text-stone-400 uppercase mb-1">Blog</p>
+            <a href="https://afsdzvcx123.tistory.com/" target="_blank" class="text-sm font-medium text-stone-800 hover:text-warm-600 transition-colors">afsdzvcx123.tistory.com</a>
+          </div>
+        </div>
+        <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-5 flex items-start gap-4 card-lift" style="transition-delay:0.15s">
+          <div class="w-10 h-10 rounded-xl bg-warm-100 flex items-center justify-center flex-shrink-0">
+            <span class="iconify w-5 h-5 text-warm-700" data-icon="solar:hashtag-linear"></span>
+          </div>
+          <div>
+            <p class="text-[11px] font-mono tracking-wider text-stone-400 uppercase mb-1">GitHub</p>
+            <a href="https://github.com/JoBeomHee" target="_blank" class="text-sm font-medium text-stone-800 hover:text-warm-600 transition-colors">github.com/JoBeomHee</a>
+          </div>
+        </div>
+        <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-5 flex items-start gap-4 card-lift" style="transition-delay:0.2s">
+          <div class="w-10 h-10 rounded-xl bg-warm-100 flex items-center justify-center flex-shrink-0">
+            <span class="iconify w-5 h-5 text-warm-700" data-icon="solar:buildings-2-linear"></span>
+          </div>
+          <div>
+            <p class="text-[11px] font-mono tracking-wider text-stone-400 uppercase mb-1">Current</p>
+            <p class="text-sm font-medium text-stone-800">(주) 한화에너지(컨버전스) 대리</p>
+          </div>
+        </div>
+        <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-5 flex items-start gap-4 card-lift" style="transition-delay:0.25s">
+          <div class="w-10 h-10 rounded-xl bg-warm-100 flex items-center justify-center flex-shrink-0">
+            <span class="iconify w-5 h-5 text-warm-700" data-icon="solar:square-academic-cap-linear"></span>
+          </div>
+          <div>
+            <p class="text-[11px] font-mono tracking-wider text-stone-400 uppercase mb-1">Education</p>
+            <p class="text-sm font-medium text-stone-800">선문대학교 컴퓨터공학과</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- CAREER TIMELINE -->
+<!-- ══════════════════════════════════════════ -->
+<section id="career" class="py-28 md:py-36 bg-gradient-to-b from-warm-100/40 to-warm-50">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="reveal-up flex items-center gap-4 mb-6">
+      <span class="font-mono text-xs tracking-[0.2em] text-warm-600 uppercase">02 &mdash; Career</span>
+      <div class="flex-1 h-px bg-warm-200/60"></div>
+    </div>
+    <h2 class="reveal-up font-display font-800 text-[clamp(1.8rem,3.5vw,2.8rem)] leading-snug tracking-tight text-stone-900 mb-16">
+      총 7년 이상의<br><span class="text-warm-600">산업 소프트웨어 개발 경력</span>
+    </h2>
+
+    <div class="relative">
+      <!-- Vertical line -->
+      <div class="absolute left-[23px] top-0 bottom-0 w-px timeline-line hidden md:block"></div>
+
+      <!-- Item 1: Current -->
+      <div class="reveal-up relative flex gap-8 md:gap-12 mb-12">
+        <div class="flex-shrink-0 relative z-10">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 border-2 border-emerald-400 flex items-center justify-center">
+            <span class="iconify w-5 h-5 text-emerald-600" data-icon="solar:buildings-2-bold"></span>
+          </div>
+        </div>
+        <div class="flex-1 bg-white border border-warm-200/50 rounded-2xl p-7 md:p-8 card-lift">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              현재 재직중
+            </span>
+            <span class="font-mono text-xs text-stone-400">2024.11 &mdash; 현재</span>
+          </div>
+          <h3 class="font-display font-700 text-xl md:text-2xl text-stone-900 mb-2">(주) 한화에너지(컨버전스)</h3>
+          <p class="text-sm text-stone-500 mb-4">대리</p>
+          <p class="text-sm leading-relaxed text-stone-600">에너지 컨버전스 분야에서 소프트웨어 개발 업무를 담당하고 있습니다.</p>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="reveal-up relative flex gap-8 md:gap-12 mb-12" style="transition-delay:0.1s">
+        <div class="flex-shrink-0 relative z-10">
+          <div class="w-12 h-12 rounded-2xl bg-warm-100 border-2 border-warm-300 flex items-center justify-center">
+            <span class="iconify w-5 h-5 text-warm-700" data-icon="solar:monitor-bold"></span>
+          </div>
+        </div>
+        <div class="flex-1 bg-white border border-warm-200/50 rounded-2xl p-7 md:p-8 card-lift">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="font-mono text-xs text-stone-400">2021.01 &mdash; 2024.10</span>
+            <span class="text-xs text-stone-400">&#183; 3년 10개월</span>
+          </div>
+          <h3 class="font-display font-700 text-xl md:text-2xl text-stone-900 mb-2">(주) 미래로시스템</h3>
+          <p class="text-sm text-stone-500 mb-4">대리</p>
+          <p class="text-sm leading-relaxed text-stone-600">
+            반도체/디스플레이 검사 데이터 실시간 모니터링 시스템(RTMS, DMS) 개발을 주도했습니다.
+            AI 딥러닝 기반 Defect 자동 판정 솔루션인 ADC Edge 프로젝트에서 핵심 개발자로 참여했습니다.
+            WPF, Blazor를 활용한 고성능 데스크톱/웹 애플리케이션을 설계하고, Oracle, PostgreSQL 기반의 대용량 데이터 파이프라인을 구축했습니다.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">C#</span>
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">WPF</span>
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">Blazor</span>
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">Oracle</span>
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">Docker</span>
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">gRPC</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="reveal-up relative flex gap-8 md:gap-12" style="transition-delay:0.2s">
+        <div class="flex-shrink-0 relative z-10">
+          <div class="w-12 h-12 rounded-2xl bg-stone-100 border-2 border-stone-300 flex items-center justify-center">
+            <span class="iconify w-5 h-5 text-stone-600" data-icon="solar:server-bold"></span>
+          </div>
+        </div>
+        <div class="flex-1 bg-white border border-warm-200/50 rounded-2xl p-7 md:p-8 card-lift">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="font-mono text-xs text-stone-400">2017.10 &mdash; 2020.10</span>
+            <span class="text-xs text-stone-400">&#183; 3년</span>
+          </div>
+          <h3 class="font-display font-700 text-xl md:text-2xl text-stone-900 mb-2">(주) 윈포시스</h3>
+          <p class="text-sm text-stone-500 mb-4">주임 연구원</p>
+          <p class="text-sm leading-relaxed text-stone-600">
+            Windows 기반 산업용 소프트웨어 개발에 참여했습니다.
+            C#과 WPF, Windows Forms를 활용한 데스크톱 애플리케이션을 개발하며 .NET 전문성을 쌓았습니다.
+            MS-SQL, Oracle 기반의 데이터베이스 설계 및 최적화 경험을 축적했습니다.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">C#</span>
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">WPF</span>
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">WinForms</span>
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">MS-SQL</span>
+            <span class="px-2.5 py-1 bg-warm-50 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">Oracle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SKILLS — Bento Grid -->
+<!-- ══════════════════════════════════════════ -->
+<section id="skills" class="py-28 md:py-36">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="reveal-up flex items-center gap-4 mb-6">
+      <span class="font-mono text-xs tracking-[0.2em] text-warm-600 uppercase">03 &mdash; Skills</span>
+      <div class="flex-1 h-px bg-warm-200/60"></div>
+    </div>
+    <h2 class="reveal-up font-display font-800 text-[clamp(1.8rem,3.5vw,2.8rem)] leading-snug tracking-tight text-stone-900 mb-16">
+      기술 스택 &<br><span class="text-warm-600">도구 숙련도</span>
+    </h2>
+
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <!-- C# — Featured large card -->
+      <div class="reveal-up md:col-span-2 lg:col-span-1 lg:row-span-2 bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900 rounded-3xl p-8 flex flex-col justify-between card-lift min-h-[320px]">
+        <div>
+          <div class="flex items-center gap-2 mb-6">
+            <span class="w-8 h-8 rounded-lg bg-warm-500/20 flex items-center justify-center">
+              <span class="text-warm-400 font-mono font-bold text-sm">C#</span>
+            </span>
+            <span class="text-xs font-mono text-warm-400/70 tracking-wider uppercase">Primary Language</span>
+          </div>
+          <h3 class="font-display font-800 text-3xl text-warm-50 mb-3">C# / .NET</h3>
+          <p class="text-sm leading-relaxed text-stone-400">
+            7년 이상 실무에서 사용한 주력 언어. WPF, Blazor, ASP.NET Core, Windows Forms 등 .NET 생태계 전반에 걸친 깊은 이해와 경험을 보유하고 있습니다.
+          </p>
+        </div>
+        <div class="mt-8">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-mono text-stone-400">Proficiency</span>
+            <span class="text-xs font-mono text-warm-400">100%</span>
+          </div>
+          <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+            <div class="skill-fill h-full bg-gradient-to-r from-warm-500 to-warm-400 rounded-full" style="width:100%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WPF -->
+      <div class="reveal-up bg-white border border-warm-200/50 rounded-3xl p-7 card-lift" style="transition-delay:0.05s">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
+              <span class="iconify w-5 h-5 text-indigo-600" data-icon="solar:window-frame-bold"></span>
+            </span>
+            <h3 class="font-display font-700 text-lg text-stone-900">WPF</h3>
+          </div>
+          <span class="text-xs font-mono text-warm-600 bg-warm-50 px-2.5 py-1 rounded-md">Expert</span>
+        </div>
+        <p class="text-sm text-stone-500 leading-relaxed mb-5">MVVM 패턴 기반 고성능 데스크톱 UI 개발. 데이터 바인딩, 커스텀 컨트롤, 복잡한 레이아웃 구현에 능숙합니다.</p>
+        <div class="w-full h-1 bg-stone-100 rounded-full overflow-hidden">
+          <div class="skill-fill h-full bg-gradient-to-r from-indigo-400 to-indigo-300 rounded-full" style="width:95%"></div>
+        </div>
+      </div>
+
+      <!-- Windows Forms -->
+      <div class="reveal-up bg-white border border-warm-200/50 rounded-3xl p-7 card-lift" style="transition-delay:0.1s">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center">
+              <span class="iconify w-5 h-5 text-sky-600" data-icon="solar:monitor-bold"></span>
+            </span>
+            <h3 class="font-display font-700 text-lg text-stone-900">Windows Forms</h3>
+          </div>
+          <span class="text-xs font-mono text-warm-600 bg-warm-50 px-2.5 py-1 rounded-md">Expert</span>
+        </div>
+        <p class="text-sm text-stone-500 leading-relaxed mb-5">레거시 시스템 유지보수 및 신규 개발. 산업용 데스크톱 애플리케이션의 안정적인 UI를 구축합니다.</p>
+        <div class="w-full h-1 bg-stone-100 rounded-full overflow-hidden">
+          <div class="skill-fill h-full bg-gradient-to-r from-sky-400 to-sky-300 rounded-full" style="width:95%"></div>
+        </div>
+      </div>
+
+      <!-- Oracle — Featured -->
+      <div class="reveal-up bg-gradient-to-br from-red-50 to-warm-50 border border-red-100/60 rounded-3xl p-7 card-lift" style="transition-delay:0.05s">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center">
+              <span class="iconify w-5 h-5 text-red-600" data-icon="solar:database-bold"></span>
+            </span>
+            <h3 class="font-display font-700 text-lg text-stone-900">Oracle</h3>
+          </div>
+          <span class="text-xs font-mono text-red-600 bg-red-50 px-2.5 py-1 rounded-md">Expert</span>
+        </div>
+        <p class="text-sm text-stone-500 leading-relaxed mb-5">대용량 데이터 처리 및 성능 튜닝. PL/SQL, 파티셔닝, 인덱스 최적화 등 실무 경험이 풍부합니다.</p>
+        <div class="w-full h-1 bg-red-100/60 rounded-full overflow-hidden">
+          <div class="skill-fill h-full bg-gradient-to-r from-red-400 to-warm-400 rounded-full" style="width:100%"></div>
+        </div>
+      </div>
+
+      <!-- Blazor -->
+      <div class="reveal-up bg-white border border-warm-200/50 rounded-3xl p-7 card-lift" style="transition-delay:0.1s">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center">
+              <span class="iconify w-5 h-5 text-violet-600" data-icon="solar:fire-bold"></span>
+            </span>
+            <h3 class="font-display font-700 text-lg text-stone-900">Blazor</h3>
+          </div>
+          <span class="text-xs font-mono text-violet-600 bg-violet-50 px-2.5 py-1 rounded-md">Advanced</span>
+        </div>
+        <p class="text-sm text-stone-500 leading-relaxed mb-5">C#으로 풀스택 웹 개발. Server/WASM 모드 모두 경험하며 SPA 구축이 가능합니다.</p>
+        <div class="w-full h-1 bg-stone-100 rounded-full overflow-hidden">
+          <div class="skill-fill h-full bg-gradient-to-r from-violet-400 to-violet-300 rounded-full" style="width:80%"></div>
+        </div>
+      </div>
+
+      <!-- ASP.NET Core -->
+      <div class="reveal-up bg-white border border-warm-200/50 rounded-3xl p-7 card-lift" style="transition-delay:0.15s">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+              <span class="iconify w-5 h-5 text-blue-600" data-icon="solar:server-path-bold"></span>
+            </span>
+            <h3 class="font-display font-700 text-lg text-stone-900">ASP.NET Core</h3>
+          </div>
+          <span class="text-xs font-mono text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">Advanced</span>
+        </div>
+        <p class="text-sm text-stone-500 leading-relaxed mb-5">RESTful API 설계, Middleware, DI 패턴을 활용한 백엔드 서비스를 구축합니다.</p>
+        <div class="w-full h-1 bg-stone-100 rounded-full overflow-hidden">
+          <div class="skill-fill h-full bg-gradient-to-r from-blue-400 to-blue-300 rounded-full" style="width:70%"></div>
+        </div>
+      </div>
+
+      <!-- Wide card: Database & Infra -->
+      <div class="reveal-up md:col-span-2 lg:col-span-3 bg-stone-50 border border-stone-200/50 rounded-3xl p-8 card-lift mt-2">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="iconify w-5 h-5 text-warm-600" data-icon="solar:server-square-cloud-bold"></span>
+          <h3 class="font-display font-700 text-lg text-stone-900">Database & Infrastructure</h3>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="text-center">
+            <div class="w-full h-1 bg-stone-200 rounded-full mb-3 overflow-hidden"><div class="skill-fill h-full bg-warm-500 rounded-full" style="width:100%"></div></div>
+            <p class="text-sm font-semibold text-stone-800">Oracle</p>
+            <p class="text-[11px] text-stone-400 font-mono">100%</p>
+          </div>
+          <div class="text-center">
+            <div class="w-full h-1 bg-stone-200 rounded-full mb-3 overflow-hidden"><div class="skill-fill h-full bg-blue-400 rounded-full" style="width:70%"></div></div>
+            <p class="text-sm font-semibold text-stone-800">PostgreSQL</p>
+            <p class="text-[11px] text-stone-400 font-mono">70%</p>
+          </div>
+          <div class="text-center">
+            <div class="w-full h-1 bg-stone-200 rounded-full mb-3 overflow-hidden"><div class="skill-fill h-full bg-stone-500 rounded-full" style="width:65%"></div></div>
+            <p class="text-sm font-semibold text-stone-800">MS-SQL</p>
+            <p class="text-[11px] text-stone-400 font-mono">65%</p>
+          </div>
+          <div class="text-center">
+            <div class="w-full h-1 bg-stone-200 rounded-full mb-3 overflow-hidden"><div class="skill-fill h-full bg-sky-400 rounded-full" style="width:50%"></div></div>
+            <p class="text-sm font-semibold text-stone-800">MySQL</p>
+            <p class="text-[11px] text-stone-400 font-mono">50%</p>
+          </div>
+          <div class="text-center">
+            <div class="w-full h-1 bg-stone-200 rounded-full mb-3 overflow-hidden"><div class="skill-fill h-full bg-cyan-500 rounded-full" style="width:70%"></div></div>
+            <p class="text-sm font-semibold text-stone-800">Docker</p>
+            <p class="text-[11px] text-stone-400 font-mono">70%</p>
+          </div>
+          <div class="text-center">
+            <div class="w-full h-1 bg-stone-200 rounded-full mb-3 overflow-hidden"><div class="skill-fill h-full bg-orange-400 rounded-full" style="width:55%"></div></div>
+            <p class="text-sm font-semibold text-stone-800">RabbitMQ</p>
+            <p class="text-[11px] text-stone-400 font-mono">55%</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wide card: Frontend & Others -->
+      <div class="reveal-up md:col-span-2 lg:col-span-3 bg-white border border-warm-200/50 rounded-3xl p-8 card-lift">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="iconify w-5 h-5 text-warm-600" data-icon="solar:palette-bold"></span>
+          <h3 class="font-display font-700 text-lg text-stone-900">Frontend & Collaboration</h3>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-cyan-50 flex items-center justify-center mb-2">
+              <span class="iconify w-5 h-5 text-cyan-600" data-icon="solar:atom-bold"></span>
+            </div>
+            <p class="text-xs font-semibold text-stone-700">React</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-blue-50 flex items-center justify-center mb-2">
+              <span class="iconify w-5 h-5 text-blue-600" data-icon="solar:code-bold"></span>
+            </div>
+            <p class="text-xs font-semibold text-stone-700">TypeScript</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-yellow-50 flex items-center justify-center mb-2">
+              <span class="iconify w-5 h-5 text-yellow-600" data-icon="solar:code-square-bold"></span>
+            </div>
+            <p class="text-xs font-semibold text-stone-700">JavaScript</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-orange-50 flex items-center justify-center mb-2">
+              <span class="iconify w-5 h-5 text-orange-600" data-icon="solar:document-bold"></span>
+            </div>
+            <p class="text-xs font-semibold text-stone-700">HTML/CSS</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-stone-100 flex items-center justify-center mb-2">
+              <span class="iconify w-5 h-5 text-stone-600" data-icon="solar:share-circle-bold"></span>
+            </div>
+            <p class="text-xs font-semibold text-stone-700">Git</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-stone-100 flex items-center justify-center mb-2">
+              <span class="iconify w-5 h-5 text-stone-600" data-icon="solar:notebook-bold"></span>
+            </div>
+            <p class="text-xs font-semibold text-stone-700">Notion</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-green-50 flex items-center justify-center mb-2">
+              <span class="iconify w-5 h-5 text-green-600" data-icon="solar:server-bold"></span>
+            </div>
+            <p class="text-xs font-semibold text-stone-700">Linux</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-emerald-50 flex items-center justify-center mb-2">
+              <span class="iconify w-5 h-5 text-emerald-600" data-icon="solar:leaf-bold"></span>
+            </div>
+            <p class="text-xs font-semibold text-stone-700">Python</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PROJECTS -->
+<!-- ══════════════════════════════════════════ -->
+<section id="projects" class="py-28 md:py-36 bg-gradient-to-b from-warm-100/40 to-warm-50">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="reveal-up flex items-center gap-4 mb-6">
+      <span class="font-mono text-xs tracking-[0.2em] text-warm-600 uppercase">04 &mdash; Projects</span>
+      <div class="flex-1 h-px bg-warm-200/60"></div>
+    </div>
+    <h2 class="reveal-up font-display font-800 text-[clamp(1.8rem,3.5vw,2.8rem)] leading-snug tracking-tight text-stone-900 mb-16">
+      대표 프로젝트 &<br><span class="text-warm-600">연구 성과</span>
+    </h2>
+
+    <!-- Project 1: RTMS/DMS — Full width featured -->
+    <div class="reveal-up mb-6">
+      <div class="bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900 rounded-3xl p-8 md:p-12 card-lift overflow-hidden relative">
+        <!-- Decorative -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-warm-500/10 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+          <div class="lg:col-span-3">
+            <div class="flex items-center gap-2 mb-5">
+              <span class="iconify w-4 h-4 text-warm-400" data-icon="solar:chart-bold"></span>
+              <span class="text-xs font-mono text-warm-400 tracking-wider uppercase">Real-time Monitoring System</span>
+            </div>
+            <h3 class="font-display font-800 text-2xl md:text-3xl text-warm-50 mb-4 leading-snug">RTMS / DMS</h3>
+            <p class="text-[15px] leading-[1.85] text-stone-400 mb-6">
+              반도체 및 디스플레이 공정 라인에서 발생하는 대량의 검사 데이터를 실시간으로 수집, 분석, 시각화하는 모니터링 플랫폼입니다. 엔지니어가 공정 이상을 즉시 감지하고 대응할 수 있도록 직관적인 대시보드를 제공합니다.
+            </p>
+            <div class="space-y-2 mb-6">
+              <div class="flex items-start gap-2">
+                <span class="iconify w-4 h-4 text-warm-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+                <span class="text-sm text-stone-300">대규모 실시간 데이터 스트리밍 파이프라인 설계 및 구축</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="iconify w-4 h-4 text-warm-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+                <span class="text-sm text-stone-300">WPF 기반 고성능 데이터 시각화 대시보드 개발</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="iconify w-4 h-4 text-warm-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+                <span class="text-sm text-stone-300">Oracle DB 대용량 쿼리 최적화 및 데이터 파티셔닝</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="iconify w-4 h-4 text-warm-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+                <span class="text-sm text-stone-300">RabbitMQ 기반 메시지 큐 아키텍처 적용</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 bg-white/10 rounded-lg text-xs font-mono text-warm-300">C#</span>
+              <span class="px-3 py-1 bg-white/10 rounded-lg text-xs font-mono text-warm-300">WPF</span>
+              <span class="px-3 py-1 bg-white/10 rounded-lg text-xs font-mono text-warm-300">.NET</span>
+              <span class="px-3 py-1 bg-white/10 rounded-lg text-xs font-mono text-warm-300">Oracle</span>
+              <span class="px-3 py-1 bg-white/10 rounded-lg text-xs font-mono text-warm-300">RabbitMQ</span>
+              <span class="px-3 py-1 bg-white/10 rounded-lg text-xs font-mono text-warm-300">PostgreSQL</span>
+            </div>
+          </div>
+          <div class="lg:col-span-2 flex items-center justify-center">
+            <div class="w-full max-w-[280px] aspect-square bg-gradient-to-br from-warm-500/20 via-stone-700 to-stone-800 rounded-3xl border border-white/5 flex items-center justify-center">
+              <span class="iconify w-20 h-20 text-warm-400/40" data-icon="solar:chart-2-bold-duotone"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2 & 3 side by side -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <!-- ADC Edge -->
+      <div class="reveal-up bg-white border border-warm-200/50 rounded-3xl p-8 card-lift">
+        <div class="flex items-center gap-2 mb-5">
+          <span class="iconify w-4 h-4 text-violet-500" data-icon="solar:magic-stick-3-bold"></span>
+          <span class="text-xs font-mono text-violet-600 tracking-wider uppercase">AI Deep Learning</span>
+        </div>
+        <h3 class="font-display font-700 text-xl md:text-2xl text-stone-900 mb-4">ADC Edge</h3>
+        <p class="text-sm leading-[1.85] text-stone-500 mb-5">
+          AI 딥러닝 기술을 활용하여 반도체/디스플레이 이미지의 Defect를 자동 판정하는 Edge Computing 기반 솔루션입니다. 엔지니어에게 실시간 Defect 분류 및 정보를 제공하여 품질 관리의 자동화를 실현합니다.
+        </p>
+        <div class="space-y-2 mb-5">
+          <div class="flex items-start gap-2">
+            <span class="iconify w-3.5 h-3.5 text-violet-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+            <span class="text-sm text-stone-500">딥러닝 모델 서빙을 위한 gRPC 통신 레이어 구축</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="iconify w-3.5 h-3.5 text-violet-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+            <span class="text-sm text-stone-500">Docker 컨테이너 기반 배포 파이프라인 설계</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="iconify w-3.5 h-3.5 text-violet-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+            <span class="text-sm text-stone-500">Edge 환경에서의 실시간 이미지 처리 최적화</span>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-2.5 py-1 bg-violet-50 border border-violet-100 rounded-md text-[11px] font-mono text-violet-700">C#</span>
+          <span class="px-2.5 py-1 bg-violet-50 border border-violet-100 rounded-md text-[11px] font-mono text-violet-700">Python</span>
+          <span class="px-2.5 py-1 bg-violet-50 border border-violet-100 rounded-md text-[11px] font-mono text-violet-700">gRPC</span>
+          <span class="px-2.5 py-1 bg-violet-50 border border-violet-100 rounded-md text-[11px] font-mono text-violet-700">Docker</span>
+          <span class="px-2.5 py-1 bg-violet-50 border border-violet-100 rounded-md text-[11px] font-mono text-violet-700">Deep Learning</span>
+        </div>
+      </div>
+
+      <!-- IoT VR -->
+      <div class="reveal-up bg-white border border-warm-200/50 rounded-3xl p-8 card-lift" style="transition-delay:0.1s">
+        <div class="flex items-center gap-2 mb-5">
+          <span class="iconify w-4 h-4 text-emerald-500" data-icon="solar:gamepad-bold"></span>
+          <span class="text-xs font-mono text-emerald-600 tracking-wider uppercase">IoT &middot; VR Research</span>
+        </div>
+        <h3 class="font-display font-700 text-xl md:text-2xl text-stone-900 mb-4">IoT 기반 VR 운동 시스템</h3>
+        <p class="text-sm leading-[1.85] text-stone-500 mb-5">
+          IoT 센서 데이터와 VR 기술을 융합하여 사용자의 운동능력을 측정하고 향상시키는 가상현실 훈련 시스템입니다. 학술 논문으로 발표된 연구 프로젝트입니다.
+        </p>
+        <div class="space-y-2 mb-5">
+          <div class="flex items-start gap-2">
+            <span class="iconify w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+            <span class="text-sm text-stone-500">IoT 센서 데이터 실시간 수집 및 처리</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="iconify w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+            <span class="text-sm text-stone-500">VR 환경에서의 운동 데이터 시각화</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="iconify w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" data-icon="solar:check-circle-bold"></span>
+            <span class="text-sm text-stone-500">학술 논문 게재</span>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-md text-[11px] font-mono text-emerald-700">IoT</span>
+          <span class="px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-md text-[11px] font-mono text-emerald-700">VR</span>
+          <span class="px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-md text-[11px] font-mono text-emerald-700">C#</span>
+          <span class="px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-md text-[11px] font-mono text-emerald-700">Sensor</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4: Smart Lock -->
+    <div class="reveal-up bg-gradient-to-r from-warm-50 to-white border border-warm-200/50 rounded-3xl p-8 card-lift">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2 mb-5">
+            <span class="iconify w-4 h-4 text-warm-600" data-icon="solar:lock-bold"></span>
+            <span class="text-xs font-mono text-warm-600 tracking-wider uppercase">IoT &middot; Patent</span>
+          </div>
+          <h3 class="font-display font-700 text-xl md:text-2xl text-stone-900 mb-4">스마트 자물쇠</h3>
+          <p class="text-sm leading-[1.85] text-stone-500 mb-5">
+            IoT 기술 기반의 스마트 자물쇠 시스템을 설계부터 구현까지 주도한 프로젝트입니다. 하드웨어와 소프트웨어를 연동하여 원격 제어가 가능한 잠금 시스템을 개발했습니다. 학술 논문 발표, 저작권 등록, 특허 출원까지 완료한 의미 있는 성과를 달성했습니다.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 bg-warm-100 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">IoT</span>
+            <span class="px-2.5 py-1 bg-warm-100 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">Embedded</span>
+            <span class="px-2.5 py-1 bg-warm-100 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">C#</span>
+            <span class="px-2.5 py-1 bg-warm-100 border border-warm-200/60 rounded-md text-[11px] font-mono text-warm-800">Hardware</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div class="bg-warm-100/60 border border-warm-200/50 rounded-xl p-4 text-center">
+            <span class="iconify w-6 h-6 text-warm-600 mx-auto mb-2" data-icon="solar:document-text-bold"></span>
+            <p class="text-xs font-semibold text-stone-700">논문 발표</p>
+          </div>
+          <div class="bg-warm-100/60 border border-warm-200/50 rounded-xl p-4 text-center">
+            <span class="iconify w-6 h-6 text-warm-600 mx-auto mb-2" data-icon="solar:copyright-bold"></span>
+            <p class="text-xs font-semibold text-stone-700">저작권 등록</p>
+          </div>
+          <div class="bg-warm-100/60 border border-warm-200/50 rounded-xl p-4 text-center">
+            <span class="iconify w-6 h-6 text-warm-600 mx-auto mb-2" data-icon="solar:shield-check-bold"></span>
+            <p class="text-xs font-semibold text-stone-700">특허 출원</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- AWARDS & EDUCATION -->
+<!-- ══════════════════════════════════════════ -->
+<section id="awards" class="py-28 md:py-36">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="reveal-up flex items-center gap-4 mb-6">
+      <span class="font-mono text-xs tracking-[0.2em] text-warm-600 uppercase">05 &mdash; Awards & Education</span>
+      <div class="flex-1 h-px bg-warm-200/60"></div>
+    </div>
+    <h2 class="reveal-up font-display font-800 text-[clamp(1.8rem,3.5vw,2.8rem)] leading-snug tracking-tight text-stone-900 mb-16">
+      수상 내역 &<br><span class="text-warm-600">학력</span>
+    </h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+      <!-- Awards -->
+      <div class="lg:col-span-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="reveal-up bg-gradient-to-br from-yellow-50 to-warm-50 border border-yellow-200/50 rounded-2xl p-6 card-lift">
+            <div class="w-12 h-12 rounded-xl bg-yellow-100 flex items-center justify-center mb-4">
+              <span class="iconify w-6 h-6 text-yellow-600" data-icon="solar:cup-star-bold"></span>
+            </div>
+            <p class="font-mono text-xs text-warm-600 mb-1">2016</p>
+            <h3 class="font-display font-700 text-stone-900 mb-1">총장상</h3>
+            <p class="text-sm text-stone-500">선문대학교</p>
+          </div>
+
+          <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-6 card-lift" style="transition-delay:0.05s">
+            <div class="w-12 h-12 rounded-xl bg-warm-100 flex items-center justify-center mb-4">
+              <span class="iconify w-6 h-6 text-warm-600" data-icon="solar:medal-ribbons-star-bold"></span>
+            </div>
+            <p class="font-mono text-xs text-warm-600 mb-1">2016</p>
+            <h3 class="font-display font-700 text-stone-900 mb-1">창업경진대회 금상</h3>
+            <p class="text-sm text-stone-500">선문대학교</p>
+          </div>
+
+          <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-6 card-lift" style="transition-delay:0.1s">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+              <span class="iconify w-6 h-6 text-blue-600" data-icon="solar:star-bold"></span>
+            </div>
+            <p class="font-mono text-xs text-warm-600 mb-1">2016</p>
+            <h3 class="font-display font-700 text-stone-900 mb-1">우수상</h3>
+            <p class="text-sm text-stone-500">SW프로슈머</p>
+          </div>
+
+          <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-6 card-lift" style="transition-delay:0.15s">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-4">
+              <span class="iconify w-6 h-6 text-emerald-600" data-icon="solar:rocket-2-bold"></span>
+            </div>
+            <p class="font-mono text-xs text-warm-600 mb-1">2017</p>
+            <h3 class="font-display font-700 text-stone-900 mb-1">Venture Start-up</h3>
+            <p class="text-sm text-stone-500">경진대회 수상</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="lg:col-span-2 flex flex-col gap-4">
+        <div class="reveal-up bg-stone-900 rounded-2xl p-7 card-lift">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="iconify w-5 h-5 text-warm-400" data-icon="solar:square-academic-cap-bold"></span>
+            <span class="text-xs font-mono text-warm-400 tracking-wider uppercase">University</span>
+          </div>
+          <h3 class="font-display font-700 text-xl text-warm-50 mb-2">선문대학교</h3>
+          <p class="text-sm text-stone-400 mb-1">컴퓨터공학과 졸업</p>
+          <p class="font-mono text-xs text-stone-500">2012.03 &mdash; 2018.02</p>
+        </div>
+
+        <div class="reveal-up bg-white border border-warm-200/50 rounded-2xl p-7 card-lift" style="transition-delay:0.1s">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="iconify w-5 h-5 text-warm-600" data-icon="solar:diploma-bold"></span>
+            <span class="text-xs font-mono text-warm-600 tracking-wider uppercase">Certificate</span>
+          </div>
+          <h3 class="font-display font-700 text-lg text-stone-900 mb-2">비트컴퓨터</h3>
+          <p class="text-sm text-stone-500 mb-1">윈도우 전문가 과정 수료</p>
+          <p class="font-mono text-xs text-stone-400">2016.01 &mdash; 2016.09</p>
+        </div>
+
+        <div class="reveal-up bg-warm-50 border border-warm-200/50 rounded-2xl p-7 card-lift" style="transition-delay:0.2s">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="iconify w-5 h-5 text-warm-600" data-icon="solar:document-medicine-bold"></span>
+            <span class="text-xs font-mono text-warm-600 tracking-wider uppercase">Publications</span>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <p class="text-sm font-semibold text-stone-800">스마트 자물쇠 논문</p>
+              <p class="text-xs text-stone-500">저작권 등록 + 특허 출원 완료</p>
+            </div>
+            <div class="h-px bg-warm-200/60"></div>
+            <div>
+              <p class="text-sm font-semibold text-stone-800">IoT 기반 운동능력 향상을 위한 VR</p>
+              <p class="text-xs text-stone-500">학술 논문 게재</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- CONTACT / CTA -->
+<!-- ══════════════════════════════════════════ -->
+<section id="contact" class="py-28 md:py-36 bg-gradient-to-b from-warm-100/40 to-warm-50 relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-warm-200/30 via-warm-100/10 to-transparent rounded-full blur-3xl"></div>
+  </div>
+  <div class="max-w-3xl mx-auto px-6 md:px-10 text-center relative z-10">
+    <div class="reveal-up">
+      <span class="font-mono text-xs tracking-[0.2em] text-warm-600 uppercase">06 &mdash; Contact</span>
+    </div>
+    <h2 class="reveal-up font-display font-800 text-[clamp(2.2rem,5vw,3.8rem)] leading-tight tracking-tight text-stone-900 mt-6 mb-6" style="transition-delay:0.08s">
+      함께 만들어갈<br>새로운 가능성
+    </h2>
+    <p class="reveal-up text-lg text-stone-500 font-light mb-10 max-w-lg mx-auto" style="transition-delay:0.16s">
+      새로운 프로젝트, 협업 기회, 또는 기술적인 대화를 환영합니다.<br>편하게 연락 주세요.
+    </p>
+    <div class="reveal-up flex flex-wrap justify-center gap-4" style="transition-delay:0.24s">
+      <a href="mailto:afsdzvcx123@naver.com" class="inline-flex items-center gap-3 px-8 py-4 bg-stone-900 text-warm-50 text-sm font-semibold rounded-full hover:bg-warm-700 transition-all duration-400 ease-spring group">
+        <span class="iconify w-4.5 h-4.5" data-icon="solar:letter-bold"></span>
+        이메일 보내기
+        <span class="inline-flex items-center justify-center w-7 h-7 bg-white/10 rounded-full group-hover:bg-white/20 transition-colors">
+          <span class="iconify w-4 h-4" data-icon="solar:arrow-right-up-linear"></span>
+        </span>
+      </a>
+      <a href="https://github.com/JoBeomHee" target="_blank" class="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-stone-700 text-sm font-semibold rounded-full border border-stone-200 hover:border-warm-300 hover:text-warm-700 transition-all duration-400 ease-spring">
+        <span class="iconify w-4.5 h-4.5" data-icon="solar:share-circle-bold"></span>
+        GitHub
+      </a>
+      <a href="https://afsdzvcx123.tistory.com/" target="_blank" class="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-stone-700 text-sm font-semibold rounded-full border border-stone-200 hover:border-warm-300 hover:text-warm-700 transition-all duration-400 ease-spring">
+        <span class="iconify w-4.5 h-4.5" data-icon="solar:pen-new-round-bold"></span>
+        Blog
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════ -->
+<footer class="py-8 border-t border-warm-200/40">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4">
+    <p class="font-mono text-xs text-stone-400">&copy; 2024 BeomHee Jo. All rights reserved.</p>
+    <p class="font-mono text-xs text-stone-400">Designed with precision & warmth.</p>
+  </div>
+</footer>
+
+
+<script>
+// ── Reveal on scroll ──
+const revealEls = document.querySelectorAll('.reveal-up');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// ── Skill bar fills ──
+const skillFills = document.querySelectorAll('.skill-fill');
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('animate');
+  });
+}, { threshold: 0.3 });
+skillFills.forEach(bar => skillObserver.observe(bar));
+
+// ── Nav background on scroll ──
+const mainNav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  mainNav.classList.toggle('shadow-sm', window.scrollY > 20);
+}, { passive: true });
+
+// ── Mobile menu ──
+const mobileToggle = document.getElementById('mobileToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+mobileToggle.addEventListener('click', () => {
+  mobileMenu.classList.toggle('hidden');
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+});
+
+// ── Smooth scroll for anchor links ──
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
